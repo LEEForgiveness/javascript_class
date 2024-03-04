@@ -86,11 +86,26 @@
           $('.row').append(템플릿);
           });
         });
-        
+
         products.forEach((a, i)=>{
           var 템플릿 = 
         `<div class="col-sm-4"><img src="https://via.placeholder.com/600" class="w-100"><h5>${products[i].title}</h5><p>가격 : ${products[i].price}</p><button class="buy">구매</button></div>`;
         $('.row').append(템플릿);
+        });
+
+        $('.buy').click(function(e){
+          var title = $(e.target).siblings('h5').text();
+          if(localStorage.getItem('cart') != null){
+            console.log(localStorage.cart);
+            var 꺼낸거 = JSON.parse(localStorage.cart); //localStorage에 있는 카드에서 값을 가져옴
+            console.log(꺼낸거);
+            꺼낸거.push(title); //값을 가져온거에 버튼 누른거의 title을 항목을 추가
+            console.log(꺼낸거);
+            localStorage.setItem('cart',JSON.stringify(꺼낸거)); //원래 있던거 + 추가한 항목을 한꺼번에 localStorage에 저장
+            console.log(localStorage.cart);
+          } else{
+            localStorage.setItem('cart',JSON.stringify([title]));
+          }
         });
 
         localStorage.setItem('이름', 'kim');
